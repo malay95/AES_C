@@ -43,29 +43,6 @@ void init_struct(state_t *state) {
      state->columns = NB_SIZE;
 }
 
-/*
-uint8_t polynomial_multiply(uint8_t a, uint8_t b) {
-     volatile uint8_t gf[OCTET];
-     volatile int i,j;
-     volatile int set_bit;
-     /\* Clear the GF field *\/
-     for(i=0;i<OCTET;i++) {
-          gf[i] = 0x00;
-     }
-     for (i=0;i<OCTET;i++) {
-          /\* i is position of the bit of octet b *\/
-          for (j=0;j<OCTET;j++) {
-               /\* j is the position of bit of octet a *\/
-               if( GETBIT(a,j) == 1) {
-                    set_bit = j + i;
-
-               }
-
-          }
-     }
-}
-*/
-
 uint8_t xtime(uint8_t value)
 {
      uint8_t temp = value << 1;
