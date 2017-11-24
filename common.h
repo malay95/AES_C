@@ -136,11 +136,4 @@ void init_block(block_t *block)
      block->size = BLOCK_SIZE;
 }
 
-void array_xor(uint8_t *a,uint8_t *b,uint8_t d, int n){
-	int i;
-	for (i=0;i<n;i++){
-		d[i] = a[i] ^ b[i];	
-	}
-}
-
 #endif

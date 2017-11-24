@@ -1,8 +1,8 @@
-#ifndef subBytes.h
-#define subBytes.h
+#ifndef subBytes_h
+#define subBytes_h
 
 #include <stdint.h>
-#include <common.h>
+#include "common.h"
 
 /** 
 @file 	subBytes.c
