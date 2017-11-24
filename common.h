@@ -123,6 +123,6 @@ typedef struct {
 int init_key(key_t *key, key_size_t key_size);
 void init_block(block_t *block);
 void init_struct(state_t *state);
-uint8_t polynomial_multiply(uint8_t a, uint8_t b);
+uint8_t finite_mul(uint8_t a, uint8_t b);
 
 #endif
