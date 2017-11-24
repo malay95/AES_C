@@ -13,6 +13,28 @@
 #define KEY192_SIZE 24
 #define KEY256_SIZE 32
 
+#define NK_128 4
+#define NB_128 4
+#define NR_128 10
+
+#define NK_192 6
+#define NB_192 4
+#define NR_192 12
+
+#define NK_256 8
+#define NB_256 4
+#define NR_256 14
+
+#define STATE_ROWS 4
+#define NB_SIZE 4
+#define OCTET 8
+
+/* Bit manipulation operations */
+#define GETBIT(integer, position) ((integer >> position ) & 0x01)
+#define SETBIT(integer, position) integer |= (1 << position)
+#define CLEARBIT(integer, position) integer &= ~(1 << position)
+#define TOGGLEBIT(integer, position) integer ^= (1 << position)
+
 #include <stdint.h>
 
 /** This function which takes 1 pararmeter and returns the sbox transformation of the 16 bit number 
@@ -60,6 +82,12 @@ typedef struct {
 } block_t;
 
 typedef struct {
+     uint8_t array[STATE_ROWS][NB_SIZE];
+     int rows;
+     int columns;
+} state_t;
+
+typedef struct {
      uint8_t key[KEY128_SIZE];
      int size;
      int Nk;
@@ -92,48 +120,9 @@ typedef struct {
      } key;
 } key_t;
 
-int init_key(key_t *key, key_size_t key_size)
-{
-     if (key_size == KEY128)
-     {
-          key128_t *key_t = &(key->key.key128);
-          key->key_size = KEY128;
-          key_t->size = KEY128_SIZE;
-          key_t->Nk = 4;
-          key_t->Nb = 4;
-          key_t->Nr = 10;
-          return 1;
-     }
-     else if(key_size == KEY192)
-     {
-          key192_t *key_t = &(key->key.key192);
-          key->key_size = KEY192;
-          key_t->size = KEY192_SIZE;
-          key_t->Nk = 6;
-          key_t->Nb = 4;
-          key_t->Nr = 12;
-          return 1;
-     }
-     else if(key_size == KEY256)
-     {
-          key256_t *key_t = &(key->key.key256);
-          key->key_size = KEY256;
-          key_t->size = KEY256_SIZE;
-          key_t->Nk = 8;
-          key_t->Nb = 4;
-          key_t->Nr = 14;
-          return 1;
-     }
-     else
-     {
-          /* An Error condition as occured, return as such */
-          return 0;
-     }
-}
-
-void init_block(block_t *block)
-{
-     block->size = BLOCK_SIZE;
-}
+int init_key(key_t *key, key_size_t key_size);
+void init_block(block_t *block);
+void init_struct(state_t *state);
+uint8_t polynomial_multiply(uint8_t a, uint8_t b);
 
 #endif
