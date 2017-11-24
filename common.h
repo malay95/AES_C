@@ -17,6 +17,7 @@
 
 typedef enum {KEY128 = 0, KEY192 = 1, KEY256 = 2 } key_size_t;
 
+
 typedef struct {
      uint8_t array[BLOCK_SIZE];
      int size;
