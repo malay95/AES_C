@@ -15,6 +15,42 @@
 
 #include <stdint.h>
 
+/** This function which takes 1 pararmeter and returns the sbox transformation of the 16 bit number 
+@param a is a unsigned int of 16 bits
+@retval unsigned integer of 16 bit 
+*/
+uint8_t s_Box(uint8_t);
+
+
+/** A function which takes 1 pararmeter and returns the inverse sbox transformation of the 16 bit 		  integer 
+@param a is a unsigned int of 16 bits
+@retval unsigned integer of 16 bit 
+*/
+uint8_t inv_s_Box(uint8_t);
+
+/** 
+@breif coefficients multiplication over modulo x4 +1
+	output will be in the form of a finite field. 
+@param a is the fixed polynomial a(x) 
+@param b is the input polynomial b(x)
+@param d the multiplication of a and b modulo x4 + 1
+*/
+void coef_multi(uint8_t *, uint8_t *,uint8_t *);
+
+/** 
+@function subWord
+@breif this function appplies the s_box on a 4 byte word 
+@param a 4-byte word
+*/
+void subWord(uint8_t *);
+
+/** 
+@function rotWord
+@breif Permutes the word i.e. [a0,a1,a2,a3] changes to [a1,a2,a3,a0]
+@param a 4-byte word
+*/
+void rotWord(uint8_t *);
+
 typedef enum {KEY128 = 0, KEY192 = 1, KEY256 = 2 } key_size_t;
 
 
@@ -98,6 +134,13 @@ int init_key(key_t *key, key_size_t key_size)
 void init_block(block_t *block)
 {
      block->size = BLOCK_SIZE;
+}
+
+void array_xor(uint8_t *a,uint8_t *b,uint8_t d, int n){
+	int i;
+	for (i=0;i<n;i++){
+		d[i] = a[i] ^ b[i];	
+	}
 }
 
 #endif

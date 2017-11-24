@@ -5,23 +5,13 @@
 
 #include <stdint.h>
 #include <common.h>
-uint8_t s_Box(uint8_t);
-uint8_t inv_s_Box(uint8_t);
-uint8_t finite_mul(uint8_t,uint8_t);
-void coef_multi(uint8_t *, uint8_t *,uint8_t *);
-void subWord(uint8_t *);
-void rotWord(uint8_t *);
 
 
-/** This function which takes 1 pararmeter and returns the sbox transformation of the 16 bit number 
-@param a is a unsigned int of 16 bits
-@retval unsigned integer of 16 bit 
-*/
 uint8_t s_Box(uint8_t a){
 	
 	uint8_t c2 = a & 0xF; //second 4 bits of a
 	uint8_t c1 = a >> 4;  //first 4 of a
-	const uint8_t s[16][16] = 
+	static const uint8_t s[16][16] = 
  	{
     	{0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76},
     	{0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0},
@@ -45,15 +35,11 @@ uint8_t s_Box(uint8_t a){
 }
 
 
-/** A function which takes 1 pararmeter and returns the inverse sbox transformation of the 16 bit 		  integer 
-@param a is a unsigned int of 16 bits
-@retval unsigned integer of 16 bit 
-*/
 uint8_t inv_s_Box(uint8_t a){
 
 	uint8_t c2 = a & 0xF; //second 4 bits of a
 	uint8_t c1 = a >> 4;  //first 4 bits of a
-	const uint8_t inv_s[16][16] = 
+	static const uint8_t inv_s[16][16] = 
 	{
 	{0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB},
     	{0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87, 0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB},
@@ -75,50 +61,13 @@ uint8_t inv_s_Box(uint8_t a){
 	return inv_s[c1][c2];
 }
 
-/**
-finite field multiplication over GF(2^8)
-where m(x) = x8 + x4 + x3 + x + 1
-@brief refered from http://www.cs.utsa.edu/~wagner/laws/FFM.html
-@param a 8 bit number in hex
-@param b 8 bit number in hex
-@retval the finite field multiplication of both the numbers modulo m(x)
-*/
 
-uint8_t finite_mul(uint8_t a, uint8_t b){
-	uint8_t i,ans=0;
-	uint8_t hb = 0; 
-	for (i=0;i<8;i++){
-		if (b & 1){
-			ans = ans ^ a;		
-		}	
-		hb = a & 0x80;
-		a = a << 1;
-		if (hb) 
-			a = a ^ 0x1b;		
-		b=b>>1;
-	}
-	return ans;
-}
-
-/** 
-@breif coefficients multiplication over modulo x4 +1
-	output will be in the form of a finite field. 
-@param a is the fixed polynomial a(x) 
-@param b is the input polynomial b(x)
-@param d the multiplication of a and b modulo x4 + 1
-*/
 void coef_multi(uint8_t *a, uint8_t *b, uint8_t *d){
 	d[0] = finite_mul(a[0],b[0]) ^ finite_mul(a[3],b[1]) ^ finite_mul(a[2],b[2]) ^ finite_mul(a[1],b[3]);
 	d[1] = finite_mul(a[1],b[0]) ^ finite_mul(a[0],b[1]) ^ finite_mul(a[3],b[2]) ^ finite_mul(a[2],b[3]);
 	d[2] = finite_mul(a[2],b[0]) ^ finite_mul(a[1],b[1]) ^ finite_mul(a[0],b[2]) ^ finite_mul(a[3],b[3]);
 	d[3] = finite_mul(a[3],b[0]) ^ finite_mul(a[2],b[1]) ^ finite_mul(a[1],b[2]) ^ finite_mul(a[0],b[3]);
 }
-
-/** 
-@function subWord
-@breif this function appplies the s_box on a 4 byte word 
-@param a 4-byte word
-*/
 
 void subWord(uint8_t *a){	
 	int i;
