@@ -89,6 +89,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY128_SIZE];
+     uint8_t expanded_key[NB_128 * (NR_128 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -97,6 +98,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY192_SIZE];
+     uint8_t expanded_key[NB_192 * (NR_192 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -105,6 +107,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY256_SIZE];
+     uint8_t expanded_key[NB_256 * (NR_256 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -122,7 +125,7 @@ typedef struct {
 
 int init_key(key_t *key, key_size_t key_size);
 void init_block(block_t *block);
-void init_struct(state_t *state);
+void init_state(state_t *state);
 uint8_t finite_mul(uint8_t a, uint8_t b);
 
 #endif
