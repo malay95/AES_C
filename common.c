@@ -123,7 +123,7 @@ void init_block(block_t *block) {
      block->size = BLOCK_SIZE;
 }
 
-void init_struct(state_t *state) {
+void init_state(state_t *state) {
      state->rows = STATE_ROWS;
      state->columns = NB_SIZE;
 }
