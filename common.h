@@ -28,6 +28,7 @@
 #define STATE_ROWS 4
 #define NB_SIZE 4
 #define OCTET 8
+#define WORD_SIZE 4
 
 /* Bit manipulation operations */
 #define GETBIT(integer, position) ((integer >> position ) & 0x01)
@@ -89,7 +90,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY128_SIZE];
-     uint8_t expanded_key[NB_128 * (NR_128 + 1)];
+     uint8_t expanded_key[WORD_SIZE * NB_128 * (NR_128 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -98,7 +99,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY192_SIZE];
-     uint8_t expanded_key[NB_192 * (NR_192 + 1)];
+     uint8_t expanded_key[WORD_SIZE * NB_192 * (NR_192 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -107,7 +108,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY256_SIZE];
-     uint8_t expanded_key[NB_256 * (NR_256 + 1)];
+     uint8_t expanded_key[WORD_SIZE * NB_256 * (NR_256 + 1)];
      int size;
      int Nk;
      int Nb;
