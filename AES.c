@@ -1,9 +1,11 @@
 #include "AES.h"
 
 void copySubArray(uint8_t *in, uint8_t *out, int from, int to){
-     int i;
-     for (i=from;i<to;i++) {
-          out[i] = in[i];
+     int i,r;
+     for (r=0;r<WORD_SIZE;r++) {
+          for (i=from;i<to;i++) {
+               out[i] = in[(r*WORD_SIZE)+i];
+          }
      }
      return;
 }
