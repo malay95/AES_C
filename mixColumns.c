@@ -1,7 +1,7 @@
 
 #include "mixColumns.h"
 
-void mixColoumns(state_t *state){
+void mixColumns(state_t *state){
 	uint8_t a[] = {0x02,0x01,0x01,0x03};
 	int i,j;
 	uint8_t col[4],res[4];

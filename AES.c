@@ -106,6 +106,7 @@ int Cipher(block_t *in, block_t *out, key_t *key) {
           }
      }
 
+     return 1;
 }
 
 
