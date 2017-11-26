@@ -131,7 +131,7 @@ void init_state(state_t *state) {
 uint8_t xtime(uint8_t value)
 {
      uint8_t temp = value << 1;
-     if(GETBIT(value, 7) == 1){
+     if(GETBIT(value, 7) == 1){    
           temp ^= 0x1b;
      }
      return temp;

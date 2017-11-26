@@ -44,7 +44,7 @@
 uint8_t s_Box(uint8_t);
 
 
-/** A function which takes 1 pararmeter and returns the inverse sbox transformation of the 16 bit 		  integer 
+/** A function which takes 1 pararmeter and returns the inverse sbox transformation of the 16 bit integer 
 @param a is a unsigned int of 16 bits
 @retval unsigned integer of 16 bit 
 */
