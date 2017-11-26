@@ -11,6 +11,6 @@
  *            operation.
  * @param_type key_t
  */
-void AddRoundKey(state_t *state, key_t *key);
+void AddRoundKey(state_t *state, block_t *key_schedule);
 
 #endif

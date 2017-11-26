@@ -11,5 +11,6 @@
 */
 
 void subBytes(state_t *);
+void invSubBytes(state_t *);
 
 #endif
