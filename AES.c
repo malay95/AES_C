@@ -211,5 +211,37 @@ int InverseCipher (block_t *in, block_t *out, key_t *key){
           }
      }
 
+     return 0;
 }
 
+#define getrandom(buf, size, flags) syscall(SYS_getrandom, buf, size, flags)
+
+int genSecureKey(key_t *key, key_size_t key_size) {
+     size_t buffer_size;
+     size_t buffer_returned = 0;
+     uint8_t *key_array;
+     init_key(key, key_size);
+     if (key_size == KEY128) { 
+          buffer_size = KEY128_SIZE;
+          key_array = key->key.key128.key;
+     } else if (key_size == KEY192) {
+          buffer_size = KEY192_SIZE;
+          key_array = key->key.key192.key;
+     } else if (key_size == KEY256) {
+          buffer_size = KEY256_SIZE;
+          key_array = key->key.key256.key;
+     }
+     else {
+          /* Error condition occured, return as such */
+          return 0;
+     }
+     
+     buffer_returned = getrandom(key_array, buffer_size, 0);
+     if (buffer_returned != buffer_size) { 
+          /* Error condition occured, return as such */
+          return 0;
+     }
+
+     /* Function completed successfully */
+     return 1;
+}

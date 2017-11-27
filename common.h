@@ -8,6 +8,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#define __key_t_defined
+#define _KEY_T_DECLARED
+
 #define BLOCK_SIZE 16
 #define KEY128_SIZE 16
 #define KEY192_SIZE 24
@@ -37,6 +40,8 @@
 #define TOGGLEBIT(integer, position) integer ^= (1 << position)
 
 #include <stdint.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /** This function which takes 1 pararmeter and returns the sbox transformation of the 16 bit number 
 @param a is a unsigned int of 16 bits
