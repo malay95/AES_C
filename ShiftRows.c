@@ -8,10 +8,10 @@ void shiftRows(state_t *state) {
 
      for(r=1;r<STATE_ROWS;r++) {
           for(c=0;c<NB_SIZE;c++) {
-               row[c] = state->array[r][(c+SHIFT(r,NB_SIZE) % NB_SIZE)];
+               row[c] = state->array[((c+SHIFT(r,NB_SIZE)) % NB_SIZE)][r];
           }
           for(c=0;c<NB_SIZE;c++) {
-               state->array[r][c] = row[c];
+               state->array[c][r] = row[c];
           }
      }
 }
@@ -22,10 +22,10 @@ void invShiftRows(state_t *state) {
 
      for(r=1;r<STATE_ROWS;r++) {
           for(c=0;c<NB_SIZE;c++) {
-               row[c] = state->array[r][c];
+               row[c] = state->array[c][r];
           }
           for(c=0;c<NB_SIZE;c++) {
-               state->array[r][(c+SHIFT(r,NB_SIZE) % NB_SIZE)] = row[c];
+               state->array[((c+SHIFT(r,NB_SIZE)) % NB_SIZE)][r] = row[c];
           }
      }
 }
