@@ -93,9 +93,6 @@ void rotWord(uint8_t *);
 */
 void rCon(uint8_t , uint8_t *);
 
-typedef enum {KEY128 = 0, KEY192 = 1, KEY256 = 2 } key_size_t;
-
-
 /**
  * This enumeration is of the type of AES being performed (Key Size being used)
  * AES128, AES192, and AES256 are entirely implemented from the NIST standard.
