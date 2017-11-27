@@ -2,8 +2,8 @@
 
 void copySubArray(uint8_t *in, uint8_t *out, int from, int to){
      int i,r;
-     for (r=0;r<WORD_SIZE;r++) {
-          for (i=from;i<to;i++) {
+     for (r=from;r<to;r++) {
+          for (i=0;i<WORD_SIZE;i++) {
                out[i] = in[(r*WORD_SIZE)+i];
           }
      }
@@ -22,6 +22,7 @@ int keyExpansion(key_t *key) {
      const key_size_t key_size = key->key_size;
      int Nk;
      int Nb;
+     int Nr;
 	uint8_t temp[WORD_SIZE], temp1[WORD_SIZE];
      uint8_t *key_array;
      uint8_t *w;
@@ -31,16 +32,19 @@ int keyExpansion(key_t *key) {
      if (key_size == KEY128) {
           Nb = key->key.key128.Nb;
           Nk = key->key.key128.Nk;
+          Nr = key->key.key128.Nr;
           key_array = key->key.key128.key;
           w = key->key.key128.expanded_key;
      } else if(key_size == KEY192) {
           Nb = key->key.key192.Nb;
           Nk = key->key.key192.Nk;
+          Nr = key->key.key192.Nr;
           key_array = key->key.key192.key;
           w = key->key.key192.expanded_key;
      } else if (key_size == KEY256) {
           Nb = key->key.key256.Nb;
           Nk = key->key.key256.Nk;
+          Nr = key->key.key256.Nr;
           key_array = key->key.key256.key;
           w = key->key.key256.expanded_key;
      } else {
@@ -49,24 +53,24 @@ int keyExpansion(key_t *key) {
      }
 	
 	for (i=0;i<Nk;i++){
-		for (k=0;k<4;k++){
-			w[(4*i)+k] = key_array[4*i+k];	
+		for (k=0;k<WORD_SIZE;k++){
+			w[(WORD_SIZE*i)+k] = key_array[(WORD_SIZE*i)+k];	
 		}
 	}
-	for (i=Nk;i<Nb*(Nb+1);i++){
-		for (k=0;k<4;k++){
-			temp[k] = w[4*(i-1) + k]; 		
+	for (i=Nk;i<Nb*(Nr+1);i++){
+		for (k=0;k<WORD_SIZE;k++){
+			temp[k] = w[(WORD_SIZE*(i-1)) + k]; 		
 		}
-		if (i % Nk ==0){
-			rCon((int)i/Nk,r);
+		if (i % Nk == 0){
+			rCon((int)(i/Nk),r);
 			copySubArray(temp,temp1,0,1);
 			rotWord(temp1);			
 			subWord(temp1);
-			arrayXor(temp1,r,temp,4);
-		}else if (Nk >6 && i%Nk ==4){
+			arrayXor(temp1,r,temp,WORD_SIZE);
+		}else if (Nk > 6 && i%Nk == 4){
 			subWord(temp);		
 		}
-		arrayXor(&w[i-Nk],temp,&w[i],4);
+		arrayXor(&w[WORD_SIZE * (i-Nk)],temp,&w[WORD_SIZE * i],WORD_SIZE);
 	}
 	return 1;
 }	
