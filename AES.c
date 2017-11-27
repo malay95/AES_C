@@ -22,11 +22,11 @@ int keyExpansion(key_t *key) {
      const key_size_t key_size = key->key_size;
      int Nk;
      int Nb;
-	uint8_t *temp, *temp1;
+	uint8_t temp[WORD_SIZE], temp1[WORD_SIZE];
      uint8_t *key_array;
      uint8_t *w;
 	int i,k;
-	uint8_t *r;
+	uint8_t r[WORD_SIZE];
 
      if (key_size == KEY128) {
           Nb = key->key.key128.Nb;
