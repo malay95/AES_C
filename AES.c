@@ -1,12 +1,15 @@
 #include "AES.h"
 
 void copySubArray(uint8_t *in, uint8_t *out, int from, int to){
-     int i;
-     for (i=from;i<to;i++) {
-          out[i] = in[i];
+     int i,r;
+     for (r=0;r<4;r++) {
+          for (i=from;i<to;i++) {
+               out[i] = in[(r*4)+i];
+          }
      }
      return;
 }
+
 
 void arrayXor (uint8_t *a, uint8_t *b,uint8_t *out,int l){
 	int i;
@@ -19,10 +22,11 @@ int keyExpansion(key_t *key) {
      const key_size_t key_size = key->key_size;
      int Nk;
      int Nb;
-	int *temp,*r;
+	uint8_t *temp, *temp1;
      uint8_t *key_array;
      uint8_t *w;
-	int i = 0;
+	int i,k;
+	uint8_t *r;
 
      if (key_size == KEY128) {
           Nb = key->key.key128.Nb;
@@ -46,26 +50,29 @@ int keyExpansion(key_t *key) {
 	
 	for (i=0;i<Nk;i++){
 		for (k=0;k<4;k++){
-			w[i][k] = key_array[4*i+k];	
+			w[(4*i)+k] = key_array[4*i+k];	
 		}
 	}
 	for (i=Nk;i<Nb*(Nb+1);i++){
-		temp = w[i-1];
+		for (k=0;k<4;k++){
+			temp[k] = w[4*(i-1) + k]; 		
+		}
 		if (i % Nk ==0){
-			rCon(i/Nk,r);
-			subWord(rotWord(&temp));
-			arrayXor(temp,r,temp,4);
+			rCon((int)i/Nk,r);
+			copySubArray(temp,temp1,4*i,4*(i+1));
+			rotWord(temp1);			
+			subWord(temp1);
+			arrayXor(temp1,r,temp,4);
 		}else if (Nk >6 && i%Nk ==4){
 			subWord(temp);		
 		}
-		arrayXor(w[i-Nk],temp,w[i],4);
+		arrayXor(&w[i-Nk],temp,&w[i],4);
 	}
+	return 1;
 }	
      
 
      /* Success return as such */
-     return 1;
-}
 
 int Cipher(block_t *in, block_t *out, key_t *key) {
      state_t state;
@@ -187,7 +194,7 @@ int InverseCipher (block_t *in, block_t *out, key_t *key){
 		invShiftRows(&state);
 		invSubBytes(&state);
 		copySubArray(w,key_schedule.array, r*Nb , (r+1)*Nb-1);
-		AddRoundKey(&state,&key_schedule)
+		AddRoundKey(&state,&key_schedule);
 		invMixColumns(&state);
      }
 

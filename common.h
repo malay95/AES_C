@@ -97,7 +97,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY128_SIZE];
-     uint8_t expanded_key[4][NB_128 * (NR_128 + 1)];
+     uint8_t expanded_key[4 *NB_128 * (NR_128 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -106,7 +106,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY192_SIZE];
-     uint8_t expanded_key[4][NB_192 * (NR_192 + 1)];
+     uint8_t expanded_key[4 *NB_192 * (NR_192 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -115,7 +115,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY256_SIZE];
-     uint8_t expanded_key[4][NB_256 * (NR_256 + 1)];
+     uint8_t expanded_key[4*NB_256 * (NR_256 + 1)];
      int size;
      int Nk;
      int Nb;
