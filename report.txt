@@ -1,0 +1,39 @@
+==Introduction 
+
+AES is the standard for cryptographic use. We have tried to implement AES which can be used in a secure platform. AES standard specifies the Rijndael algorithm which is a block cipher of different lengths. We have used C language as the base and some of its standard library for implementing the project. We have referred the standard document FIPS PUB 197. 
+We have programmed each function i.e. addroundkey, mixcolumns, etc in different file and combined them in a AES.c file. Our implementation uses the basic functions and data structure and not any other external libraries. 
+AES can be executed with the help of keys of length 128, 192 and 256 bits and our implementation considers all the 3 lengths. 
+The mathematics that is specified in the standard algorithm includes finite field, affine transformation, and some more. We have tried to make them as static as possible. 
+We have also taken into consideration some of the attacks that are prevailing like the cache attack, timing attack in our implementation. 
+While implementing AES, we got a deep understanding about the rijndael algorithm for ciphering data. Also, how to make the code more secure by following some precise practices. 
+
+==Implementation description
+ 
+The implementation consists of multiple modules and they are divided as follows:  
+•	addRoundkey
+•	mixColumns
+•	subBytes
+•	shiftRows
+•	AES
+•	Common
+Each module has 2 files the header file and the .c file. We have defined all the functions and structures that are used in the .c file in the header file. The AES is the main module that is for running the encryption, decryption and the generator function. 
+AddroundKey: The round key is added to the state using an XOR operation. This module contains only one function
+MixColumns: Module for mixColumns and invMixColumns functions. These are transformation functions in the cipher and in the inverse cipher that takes columns of the state and mixes them. 
+SubBytes: Module for subBytes and invSubBytes functions. These are also transformation functions in the cipher and inverse cipher that performs linear byte substitution on the state using the sBox and inverse sBox. 
+ShiftRows: module for shiftRows and invShiftRows functions. These functions shift the last three rows cyclically.
+Common: Module for other function and data structure that are being used in other modules. Functions like finite multiplication, coefficient multiplication, rotWord, subWord, and more.
+AES: This is the main module from where the main function is called. It contains the encryption, decryption, key-expansion and generator function. This can be used in any mode of operation. 
+The implementation is done such that all the data structures are defined once and there are no redundancies in the code for variables. Also, we have made sure that there is no function or variable or macro that are not used in the implementation.  
+
+==Crypto learning
+
+
+While implementing AES, we understood the problems and difficulties that are faced when writing a crypto function. There are many attacks that are prevalent like the timing attack and the cache attacks. 
+Cache attack: variable time instruction which can leak information about the secret key. Table lookups take different time depending on whether they are in the cache or the main memory. In AES the lookup table directly depend on the secret key. 
+Several types of attack can be done using this loophole or a pitfall. Example of one such attack is the passive timing attack in Minronov,2006
+Countermeasures for such attacks can be taken. Some such measures are:
+•	Adding variable time dummy functions. 
+•	You can preload some values into the cache and preload all tables in the cache
+•	Force all the operations or instruction to take constant time.
+•	Instead of using s-box we can evaluate s-box on the fly.
+
