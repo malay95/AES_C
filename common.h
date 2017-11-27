@@ -91,7 +91,7 @@ void rotWord(uint8_t *);
 @param	  i - power. starts from 1
 @param 	  r - output word   
 */
-void rCon(uint8_t , uint8_t *);
+void rCon(int , uint8_t *);
 
 /**
  * This enumeration is of the type of AES being performed (Key Size being used)
