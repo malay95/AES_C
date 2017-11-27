@@ -73,6 +73,14 @@ void subWord(uint8_t *);
 */
 void rotWord(uint8_t *);
 
+/**
+@fucntion rCon
+@breif 	  the round constant word array contains the values given by [x^i-1, 00 ,00,00]
+@param	  i - power. starts from 1
+@param 	  r - output word   
+*/
+void rCon(uint8_t , uint8_t *);
+
 typedef enum {KEY128 = 0, KEY192 = 1, KEY256 = 2 } key_size_t;
 
 
@@ -89,7 +97,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY128_SIZE];
-     uint8_t expanded_key[NB_128 * (NR_128 + 1)];
+     uint8_t expanded_key[4][NB_128 * (NR_128 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -98,7 +106,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY192_SIZE];
-     uint8_t expanded_key[NB_192 * (NR_192 + 1)];
+     uint8_t expanded_key[4][NB_192 * (NR_192 + 1)];
      int size;
      int Nk;
      int Nb;
@@ -107,7 +115,7 @@ typedef struct {
 
 typedef struct {
      uint8_t key[KEY256_SIZE];
-     uint8_t expanded_key[NB_256 * (NR_256 + 1)];
+     uint8_t expanded_key[4][NB_256 * (NR_256 + 1)];
      int size;
      int Nk;
      int Nb;
