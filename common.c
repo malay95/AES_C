@@ -85,7 +85,7 @@ void rotWord(uint8_t *a){
 	a[3] = temp;
 }	
 
-void rCon (int i,uint8_t *r){
+void rCon (uint8_t i,uint8_t *r){
 	int j;
 	for (j=1;j<4;j++){
 		r[j] = 0x00;
