@@ -2,9 +2,9 @@
 
 void copySubArray(uint8_t *in, uint8_t *out, int from, int to){
      int i,r;
-     for (r=from;r<to;r++) {
+     for (r=from;r<=to;r++) {
           for (i=0;i<WORD_SIZE;i++) {
-               out[i] = in[(r*WORD_SIZE)+i];
+               out[((r-from)*WORD_SIZE)+i] = in[(r*WORD_SIZE)+i];
           }
      }
      return;
@@ -63,7 +63,7 @@ int keyExpansion(key_t *key) {
 		}
 		if (i % Nk == 0){
 			rCon((int)(i/Nk),r);
-			copySubArray(temp,temp1,0,1);
+			copySubArray(temp,temp1,0,0);
 			rotWord(temp1);			
 			subWord(temp1);
 			arrayXor(temp1,r,temp,WORD_SIZE);
