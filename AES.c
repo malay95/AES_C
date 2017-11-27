@@ -22,11 +22,11 @@ int keyExpansion(key_t *key) {
      const key_size_t key_size = key->key_size;
      int Nk;
      int Nb;
-	uint8_t *temp, *temp1;
+	uint8_t temp[WORD_SIZE], temp1[WORD_SIZE];
      uint8_t *key_array;
      uint8_t *w;
 	int i,k;
-	uint8_t *r;
+	uint8_t r[WORD_SIZE];
 
      if (key_size == KEY128) {
           Nb = key->key.key128.Nb;
@@ -59,7 +59,7 @@ int keyExpansion(key_t *key) {
 		}
 		if (i % Nk ==0){
 			rCon((int)i/Nk,r);
-			copySubArray(temp,temp1,4*i,4*(i+1));
+			copySubArray(temp,temp1,0,1);
 			rotWord(temp1);			
 			subWord(temp1);
 			arrayXor(temp1,r,temp,4);
@@ -211,5 +211,37 @@ int InverseCipher (block_t *in, block_t *out, key_t *key){
           }
      }
 
+     return 0;
 }
 
+#define getrandom(buf, size, flags) syscall(SYS_getrandom, buf, size, flags)
+
+int genSecureKey(key_t *key, key_size_t key_size) {
+     size_t buffer_size;
+     size_t buffer_returned = 0;
+     uint8_t *key_array;
+     init_key(key, key_size);
+     if (key_size == KEY128) { 
+          buffer_size = KEY128_SIZE;
+          key_array = key->key.key128.key;
+     } else if (key_size == KEY192) {
+          buffer_size = KEY192_SIZE;
+          key_array = key->key.key192.key;
+     } else if (key_size == KEY256) {
+          buffer_size = KEY256_SIZE;
+          key_array = key->key.key256.key;
+     }
+     else {
+          /* Error condition occured, return as such */
+          return 0;
+     }
+     
+     buffer_returned = getrandom(key_array, buffer_size, 0);
+     if (buffer_returned != buffer_size) { 
+          /* Error condition occured, return as such */
+          return 0;
+     }
+
+     /* Function completed successfully */
+     return 1;
+}
