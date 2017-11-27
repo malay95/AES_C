@@ -85,6 +85,23 @@ void rotWord(uint8_t *a){
 	a[3] = temp;
 }	
 
+void rCon (uint8_t i,uint8_t *r){
+	int j;
+	for (j=1;j<4;j++){
+		r[j] = 0x00;
+	} 	
+	if (i==1){
+		r[0] = 0x01; // x^i-1 = x^1-1 = x^ 0 =1
+	}else if (i>1){
+		r[0] = 0x02;
+		i--;
+		while (i-1>0) {
+			r[0] = finite_mul(r[0],0x02);
+			i--;
+		}
+	}
+}
+
 int init_key(key_t *key, key_size_t key_size) {
      if (key_size == KEY128) {
           key128_t *key_t = &(key->key.key128);

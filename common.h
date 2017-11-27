@@ -74,6 +74,14 @@ void subWord(uint8_t *);
 */
 void rotWord(uint8_t *);
 
+/**
+@fucntion rCon
+@breif 	  the round constant word array contains the values given by [x^i-1, 00 ,00,00]
+@param	  i - power. starts from 1
+@param 	  r - output word   
+*/
+void rCon(uint8_t , uint8_t *);
+
 typedef enum {KEY128 = 0, KEY192 = 1, KEY256 = 2 } key_size_t;
 
 
