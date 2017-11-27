@@ -5,12 +5,15 @@
 #include "common.h"
 
 /** 
-@file 	subBytes.c
-@breif	This function uses sbox and transforms the state  16 bit value
-@param state it is a 2D array of values and they are passed as a reference. 
+ * This function uses sbox and transforms the state  8 bit value
+ * @param state it is a 2D array of values and they are passed as a reference. 
 */
-
 void subBytes(state_t *);
+
+/** 
+ * @breif	This function uses inv_sbox and transforms the state  8 bit value
+ * @param state it is a 2D array of values and they are passed as a reference. 
+*/
 void invSubBytes(state_t *);
 
 #endif
