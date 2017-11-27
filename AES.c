@@ -59,7 +59,7 @@ int keyExpansion(key_t *key) {
 		}
 		if (i % Nk ==0){
 			rCon((int)i/Nk,r);
-			copySubArray(temp,temp1,4*i,4*(i+1));
+			copySubArray(temp,temp1,0,1);
 			rotWord(temp1);			
 			subWord(temp1);
 			arrayXor(temp1,r,temp,4);

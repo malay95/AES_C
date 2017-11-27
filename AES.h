@@ -58,7 +58,7 @@ int genSecureKey(key_t *key, key_size_t key_size);
  */
 int Cipher(block_t *in, block_t *out, key_t *key);
 
-int invCipher(block_t *in, block_t *out, key_t *key);
+int InverseCipher (block_t *in, block_t *out, key_t *key);
 
 int keyExpansion (key_t *key);
 
