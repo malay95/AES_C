@@ -195,7 +195,7 @@ int InverseCipher (block_t *in, block_t *out, key_t *key){
      copySubArray(w,key_schedule.array,Nr*Nb, (Nr+1)*Nb-1);
      AddRoundKey(&state, &key_schedule);
 
-     for(r=1;r<Nr;r++) {
+     for(r=Nr-1;r>=1;r--) {
 		invShiftRows(&state);
 		invSubBytes(&state);
 		copySubArray(w,key_schedule.array, r*Nb , (r+1)*Nb-1);
