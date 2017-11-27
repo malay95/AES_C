@@ -1,4 +1,4 @@
-= Report for CSE539: Applied Cryptography, AES Implementation in C
+= CSE539 : Applied Cryptography , AES Implementation in C
 
 == Introduction
  
@@ -20,6 +20,7 @@ More importantly apart from learning about the AES algorithm and how it works, w
 
 == Implementation description
  
+We have decided to implement AES in C due to its simplicity. C language is the building block for many other languages. It has variety of data types and operators which become very handy. For inistance the stat type *uint8_t* is of size 8 bits. There is no need of checking the size of a byte. Our main goal was to minimize the use of dynamic memory. Our implementation is such that we have not used any memory allocation or deallocation functions. That will make the code more static and stable. The C language has a direct support for the bitwise operators. C language is a very portable language which means that it can run on any system without any dependencies. +
 The implementation consists of multiple modules and they are divided as follows: + 
 •	addRoundkey +
 •	mixColumns +
