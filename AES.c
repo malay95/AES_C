@@ -1,5 +1,9 @@
 #include "AES.h"
 
+/**
+ * @file AES.c
+ */
+
 void copySubArray(uint8_t *in, uint8_t *out, int from, int to){
      int i,r;
      for (r=from;r<=to;r++) {

@@ -1,5 +1,9 @@
 #include "ShiftRows.h"
 
+/**
+ * @file ShiftRows.c
+ */
+
 #define SHIFT(r,NB) r
 
 void shiftRows(state_t *state) {

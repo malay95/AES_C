@@ -5,7 +5,10 @@
 #include "common.h"
 
 /**
- * @file mixColumns
+ * @file mixColumns.h
+ */
+
+/**
  * @breif This function transforms on the state column by column and treating each column as a polynimial and
  * multiplied by a fixed polynomial a(x) modulo x^4 + 1
  *

@@ -1,6 +1,10 @@
 
 #include "subBytes.h"
 
+/**
+ * @file subBytes.c
+ */
+
 void subBytes(state_t * state){
 	int i,j;
 	

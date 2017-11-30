@@ -118,7 +118,7 @@ typedef struct {
  * a fixed 2-D array of 4x4 uint8_t. This is used during the rounds process of the
  * AES algorithm. 
  *
- * @NOTE: This struct should not be created by an end user.
+ * @note This struct should not be created by an end user.
  */
 typedef struct {
      uint8_t array[STATE_ROWS][NB_SIZE]; /**< 2-D Array 4x4 uint8_t to hold the state */
